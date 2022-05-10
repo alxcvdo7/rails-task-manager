@@ -2,7 +2,10 @@
 <h3><%= @task.title %></h3>
 <p><%= @task.details %></p>
 <%# <p><%= @task.rating %>
-<%= link_to "Delete #{@task.name}",
+<%= link_to "Delete Task",
             task_path(@task),
             method: :delete,
             data: { confirm: "Are you sure?" } %>
+
+<%= link_to "Edit Task",
+            edit_task_path(@task) %>
