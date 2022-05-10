@@ -12,8 +12,10 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(params[:task])
+    @task = Task.new(task_params)
     @task.save
+
+    redirect_to tasks_path
     # Will raise ActiveModel::ForbiddenAttributesError
   end
 
@@ -26,14 +28,21 @@ class TasksController < ApplicationController
     @task.update(task_params)
 
     # no need for app/views/tasks/update.html.erb
-  #   redirect_to task_path(@task)
-  # end
+    redirect_to task_path(@task)
+  end
 
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
 
     # no need for app/views/tasks/destroy.html.erb
-    # redirect_to tasks_path
+    redirect_to tasks_path
   end
+
+  private
+
+  def task_params
+    params.require(:task).permit(:title, :details)
+  end
+
 end
